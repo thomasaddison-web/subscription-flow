@@ -1,0 +1,464 @@
+{% liquid
+  assign sub_product = section.settings.subs_product
+  assign s_product_option1 = sub_product.options_by_name['Coffee Type']
+  assign s_product_option2 = sub_product.options_by_name['Grind Size']
+  assign s_product_option3 = sub_product.options_by_name['Size']
+  assign s_product_variant = sub_product.selected_or_first_available_variant
+%}
+
+{{ 'section-subscription-flow.css' | asset_url | stylesheet_tag }}
+
+<script>
+  var sub_product = {{ all_products[sub_product] | json }};
+</script>
+
+<script src="{{ 'section-subscription-flow.js' | asset_url }}" defer="defer"></script>
+
+<section class="section section--subscription">
+  <div class="container">
+    <sub-section class="section__color-wrapper section--subscription-wrap">
+      <header class="section__header">
+        {%- if section.settings.title != blank or section.settings.sub_title != blank or section.settings.description != blank -%}
+          <div class="text-container">
+            {%- if section.settings.sub_title != blank -%}
+              <h2 class="heading heading--small">{{ section.settings.sub_title }}</h2>
+            {%- endif -%}
+
+            {%- if section.settings.title != blank -%}
+              <h3 class="heading h2">{{ section.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.description != blank -%}
+              {{- section.settings.description -}}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </header>
+      <div class="sub-flow-step sub-flow-step-1">
+        <div class="sub-flow-step-count">1</div>
+        <div class="step-heading-wrap">
+          <div class="text-container">
+            {%- if section.settings.title_1 != blank -%}
+              <h3 class="heading h3">{{ section.settings.title_1 }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.sub_title_1 != blank -%}
+              <p>{{- section.settings.sub_title_1 -}}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="step-options-list">
+          {%- for value in s_product_option1.values %}
+            {%- assign option_index = forloop.index -%}
+            {%- assign option_img_index = 'step_1_image_' | append: option_index -%}
+            {%- assign option_img = section.settings[option_img_index] -%}
+            <div role="radiogroup" class="sub-select-card step-option-cell">
+              <input type="radio" id="input-step1-{{ value | handleize }}" name="option1" class="sr-only" {% if forloop.first %}checked{% endif %} value="{{ value }}">
+              <label for="input-step1-{{ value | handleize }}">
+                {% if option_img != blank %}
+                  <div class="step-option-img-wrap">
+                    {{ option_img | image_url: width: option_img.width | image_tag: loading: 'lazy', widths: '280', class: 'step-option-img' }}
+                  </div>
+                {% endif %}
+                <div class="ste-option-title">{{ value }}</div>
+                <div class="step-option-icon">
+                  <span>{%- render 'icon' with 'check' -%}</span>
+                </div>
+              </label>
+            </div>
+          {%- endfor %}
+        </div>
+      </div>
+      <div class="sub-flow-step sub-flow-step-2">
+        <div class="sub-flow-step-count">2</div>
+        <div class="step-heading-wrap">
+          <div class="text-container">
+            {%- if section.settings.title_2 != blank -%}
+              <h3 class="heading h3">{{ section.settings.title_2 }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.sub_title_2 != blank -%}
+              <p>{{- section.settings.sub_title_2 -}}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="step-options-list">
+          {%- for value in s_product_option2.values %}
+            {%- assign option_index = forloop.index -%}
+            {%- assign option_img_index = 'step_2_image_' | append: option_index -%}
+            {%- assign option_img = section.settings[option_img_index] -%}
+            <div role="radiogroup" class="sub-select-card step-option-cell">
+              <input type="radio" id="input-step2-{{ value | handleize }}" name="option2" class="sr-only" {% if forloop.first %}checked{% endif %} value="{{ value }}">
+              <label for="input-step2-{{ value | handleize }}">
+                {% if option_img != blank %}
+                  <div class="step-option-img-wrap">
+                    {{ option_img | image_url: width: option_img.width | image_tag: loading: 'lazy', widths: '280', class: 'step-option-img' }}
+                  </div>
+                {% endif %}
+                <div class="ste-option-title">{{ value }}</div>
+                <div class="step-option-icon">
+                  <span>{%- render 'icon' with 'check' -%}</span>
+                </div>
+              </label>
+            </div>
+          {%- endfor %}
+        </div>
+      </div>
+      <div class="sub-flow-step sub-flow-step-3">
+        <div class="sub-flow-step-count">3</div>
+        <div class="step-heading-wrap">
+          <div class="text-container">
+            {%- if section.settings.title_3 != blank -%}
+              <h3 class="heading h3">{{ section.settings.title_3 }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.sub_title_3 != blank -%}
+              <p>{{- section.settings.sub_title_3 -}}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="step-options-list">
+          {%- for value in s_product_option3.values %}
+            {%- assign option_index = forloop.index -%}
+            {%- assign option_img_index = 'step_3_image_' | append: option_index -%}
+            {%- assign option_img = section.settings[option_img_index] -%}
+            <div role="radiogroup" class="sub-select-card step-option-cell">
+              <input type="radio" id="input-step3-{{ value | handleize }}" name="option3" class="sr-only" {% if forloop.first %}checked{% endif %} value="{{ value }}">
+              <label for="input-step3-{{ value | handleize }}">
+                {% if option_img != blank %}
+                  <div class="step-option-img-wrap">
+                    {{ option_img | image_url: width: option_img.width | image_tag: loading: 'lazy', widths: '280', class: 'step-option-img' }}
+                  </div>
+                {% endif %}
+                <div class="ste-option-title">{{ value }}</div>
+                <div class="step-option-icon">
+                  <span>{%- render 'icon' with 'check' -%}</span>
+                </div>
+              </label>
+            </div>
+          {%- endfor %}
+        </div>
+      </div>
+      <div class="sub-flow-step sub-flow-step-4">
+        <div class="sub-flow-step-count">4</div>
+        <div class="step-heading-wrap">
+          <div class="text-container">
+            {%- if section.settings.title_4 != blank -%}
+              <h3 class="heading h3">{{ section.settings.title_4 }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.sub_title_4 != blank -%}
+              <p>{{- section.settings.sub_title_4 -}}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="step-options-list">
+          {%- if sub_product.selling_plan_groups.size > 0 -%}
+            {% assign selected_group_name = '' %}
+            {%- for group in sub_product.selling_plan_groups -%}
+              {%- liquid
+                assign plan_allocation = false
+        
+                for selling_plan_allocation in s_product_variant.selling_plan_allocations
+                  if group.id == selling_plan_allocation.selling_plan_group_id
+                    assign plan_allocation = selling_plan_allocation
+                    break
+                  endif
+                endfor
+        
+                assign percentage_amount = false
+        
+                for price_adjustment in plan_allocation.selling_plan.price_adjustments
+                  assign percentage_amount = price_adjustment.value | plus: 0
+                  break
+                endfor
+                assign first_group = false
+                if forloop.first
+                 assign first_group = true
+                 assign selected_group_name = group.name
+                endif
+              -%}
+
+              {%- for selling_plan in group.selling_plans -%}
+                {%- if selling_plan.id -%}
+                {%- unless percentage_amount == false %}
+                  <div role="radiogroup" class="sub-select-card step-option-cell">
+                    <input type="radio" id="selling-plan-{{ selling_plan.id }}" name="selling_plan" class="sr-only js-delivery-select" {% if first_group %}checked{% endif %} value="{{ selling_plan.id }}" data-text="{{ group.name | replace: 'Delivery ', '' }}">
+                    <label for="selling-plan-{{ selling_plan.id }}">
+                      <div class="selling-plan-label">Every</div>
+                      <div class="ste-option-title"><span class="ste-option-value">{{ group.name | replace: 'Delivery every ', '' | split: ' ' | first }}</span><span>{{ group.name | replace: 'Delivery every ', '' | split: ' ' | last }}</span></div>
+                      <div class="step-option-icon">
+                        <span>{%- render 'icon' with 'check' -%}</span>
+                      </div>
+                    </label>
+                  </div>
+                {%- endunless -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor %}
+          {%- endif %}
+        </div>
+      </div>
+      <div class="sub-flow-step sub-flow-step-5">
+        <div class="step-heading-wrap">
+          <div class="text-container">
+            {%- if section.settings.title_5 != blank -%}
+              <h3 class="heading h3">{{ section.settings.title_5 }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.sub_title_5 != blank -%}
+              <p>{{- section.settings.sub_title_5 -}}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="selected-subscription-type">
+          <div class="selected-sub-type-cell">
+            <div class="selected-sub-type-title">Coffee Type</div>
+            <div class="selected-sub-type-content"><span class="js-coffee-val">{{ s_product_variant.option1 }}</span></div>
+          </div>
+          <div class="selected-sub-type-cell">
+            <div class="selected-sub-type-title">Ground Type</div>
+            <div class="selected-sub-type-content"><span class="js-ground-val">{{ s_product_variant.option2 }}</span></div>
+          </div>
+          <div class="selected-sub-type-cell">
+            <div class="selected-sub-type-title">Delivery</div>
+            <div class="selected-sub-type-content"><span class="js-amount-val">{{ s_product_variant.option3 }}</span>, <span class="js-delivery-val">{{ selected_group_name | replace: 'Delivery ', '' }}</span></div>
+          </div>
+        </div>
+        <div class="selected-sub-price">
+          <div class="selected-sub-price-title">Price per shipment</div>
+          <div class="selected-sub-price-price js-sub-price">
+            {%- if s_product_variant.compare_at_price > s_product_variant.price -%}
+              <span class="price price--highlight price--large">
+                <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+  
+                {%- if settings.currency_code_enabled -%}
+                  {{- s_product_variant.price | money_with_currency -}}
+                {%- else -%}
+                  {{- s_product_variant.price | money -}}
+                {%- endif -%}
+              </span>
+  
+              <span class="price price--compare">
+                <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+  
+                {%- if settings.currency_code_enabled -%}
+                  {{- s_product_variant.compare_at_price | money_with_currency -}}
+                {%- else -%}
+                  {{- s_product_variant.compare_at_price | money -}}
+                {%- endif -%}
+              </span>
+            {%- else -%}
+              <span class="price price--large">
+                <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                {%- if settings.currency_code_enabled -%}
+                  {{- s_product_variant.price | money_with_currency -}}
+                {%- else -%}
+                  {{- s_product_variant.price | money -}}
+                {%- endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="selected-sub-button button-wrapper">
+          <button class="button button--primary js-sub-add-to-cart" {% unless s_product_variant.available %}disabled="disabled"{% endunless %}><span>Continue To Checkout</span>{%- render 'icon' with 'nav-arrow-right' -%}</button>
+        </div>
+      </div>
+    </sub-section>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Subscription Flow",
+    "class": "shopify-section--subscription",
+    "settings": [
+      {
+        "type": "product",
+        "id": "subs_product",
+        "label": "Subscription Product"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Build Your Plan"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "header",
+        "content": "Step 1"
+      },
+      {
+        "type": "text",
+        "id": "title_1",
+        "label": "Title 1",
+        "default": "Select your coffee type preference"
+      },
+      {
+        "type": "text",
+        "id": "sub_title_1",
+        "label": "Sub Title 1",
+        "default": "Sub title"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_1_image_1",
+        "label": "Step 1 Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_1_image_2",
+        "label": "Step 1 Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_1_image_3",
+        "label": "Step 1 Image 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_1_image_4",
+        "label": "Step 1 Image 4"
+      },
+      {
+        "type": "header",
+        "content": "Step 2"
+      },
+      {
+        "type": "text",
+        "id": "title_2",
+        "label": "Title 2",
+        "default": "SELECT YOUR GRIND TYPE"
+      },
+      {
+        "type": "text",
+        "id": "sub_title_2",
+        "label": "Sub Title 2",
+        "default": "Sub title"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_2_image_1",
+        "label": "Step 2 Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_2_image_2",
+        "label": "Step 2 Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_2_image_3",
+        "label": "Step 2 Image 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_2_image_4",
+        "label": "Step 2 Image 4"
+      },
+      {
+        "type": "header",
+        "content": "Step 3"
+      },
+      {
+        "type": "text",
+        "id": "title_3",
+        "label": "Title 3",
+        "default": "SELECT NUMBER OF BAGS PER SHIPMENT"
+      },
+      {
+        "type": "text",
+        "id": "sub_title_3",
+        "label": "Sub Title 3",
+        "default": "Sub title"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_3_image_1",
+        "label": "Step 3 Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_3_image_2",
+        "label": "Step 3 Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_3_image_3",
+        "label": "Step 3 Image 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_3_image_4",
+        "label": "Step 3 Image 4"
+      },
+      {
+        "type": "header",
+        "content": "Step 4"
+      },
+      {
+        "type": "text",
+        "id": "title_4",
+        "label": "Title 4",
+        "default": "SELECT HOW OFTEN YOU'LL RECEIVE IT"
+      },
+      {
+        "type": "text",
+        "id": "sub_title_4",
+        "label": "Sub Title 4",
+        "default": "Pause, skip, or adjust your delivery frequency at any time"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_4_image_1",
+        "label": "Step 4 Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_4_image_2",
+        "label": "Step 4 Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_4_image_3",
+        "label": "Step 4 Image 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_4_image_4",
+        "label": "Step 4 Image 4"
+      },
+      {
+        "type": "header",
+        "content": "Step 5"
+      },
+      {
+        "type": "text",
+        "id": "title_5",
+        "label": "Title 5",
+        "default": "ORDER SUMMARY"
+      },
+      {
+        "type": "text",
+        "id": "sub_title_5",
+        "label": "Sub Title 5",
+        "default": "Sub title"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Subscription Flow"
+      }
+    ]
+  }
+{% endschema %}
